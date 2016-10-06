@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<link rel="shortcut icon" href="./favicon.ico">
+<TITLE>Space</TITLE>
+<META name="keywords" content="space weather, atmosphere, ionosphere, solar wind, sun">
+<META http-equiv="Refresh" content="600">
+<META http-equiv="Pragma" content="no-cache">
+</HEAD>
+<body bgcolor="#696969" text="#ffffff" link="#0000ff" vlink="#800080" alink="#ff0000">
+
+<center>
+<h1>Today's Our Space</h1>
+<Font Size="4">
+<SCRIPT type="text/JavaScript">
+direc="https://dl.dropboxusercontent.com/u/79249656/TodayOurSpace/data/";
+
+ now = new Date();
+ str = now.getUTCFullYear()+"/";
+ str+= now.getUTCMonth()+1+"/";
+ str+= now.getUTCDate()+"   ";
+ str+= now.getUTCHours()+":";
+ str+= now.getUTCMinutes()+"UT"+"<br>";
+ document.write(str);
+
+ document.write("<br>Atmosphere Plasmasphere Model<br>");
+ document.write("<a href='data/it.gif'>Ionosphere-Thermosphere</a>");
+ document.write(" / ");
+ document.write("<a href='data/pl.gif'>Plasmasphere</a>");
+ document.write(" / Plasma Escape<br>");
+
+ hour=now.getUTCHours();
+ if( hour < 10 ) {
+ document.write("<a href='"+direc+"0"+hour+".jpeg"+"'><img width=200 src='"+direc+"0"+hour+".jpeg"+"'></a> ");
+ } else {
+ document.write("<a href='"+direc+hour+".jpeg"+"'><img width=200 src='"+direc+hour+".jpeg"+"'></a> ");
+ }
+
+ document.write("<a href='"+direc+"latalt.jpeg"+"'><img width=200  src='"+direc+"latalt.jpeg"+"'></a> ");
+
+ if( hour < 10 ) {
+ document.write("<a href='"+direc+"i0"+hour+".jpeg"+"'><img width=200 src='"+direc+"i0"+hour+".jpeg"+"'></a> ");
+ } else {
+ document.write("<a href='"+direc+"i"+hour+".jpeg"+"'><img width=200 src='"+direc+"i"+hour+".jpeg"+"'></a> ");
+ }
+
+ document.write(" ");
+ document.write("<a href='"+direc+"flux.jpg'><img width=197 src='"+direc+"flux.jpg'></a> ");
+
+ document.write("<br>Sunspot Number / Sun / Solaw Wind<br>");
+ document.write("<a href='http://sidc.oma.be/html/wolfjmms.html'><img width=333 src='http://sidc.oma.be/images/wolfjmms.png'></a> ");
+ document.write("<a href='http://sohowww.nascom.nasa.gov/data/realtime/'><img width=200 src='http://umbra.nascom.nasa.gov/images/latest_eit_195.gif'></a> ");
+ document.write("<a href='http://services.swpc.noaa.gov/images/ace-mag-swepam-24-hour.gif'><img width=250 src='http://services.swpc.noaa.gov/images/ace-mag-swepam-24-hour.gif'></a> ");
+
+</SCRIPT>
+</Font>
+</center>
+
+<hr>
+<a href="https://sites.google.com/site/spaceshw/">Shigeto WATANABE (Hokakido Information University)</a> / 
+<a href="http://sana.ep.sci.hokudai.ac.jp/nayoro/">1.6m Telescope (Hokakido University)</a> / 
+<a href="http://sdo.gsfc.nasa.gov/data/">Solar Dynamic Observatory</a> / 
+<a href="http://space.rice.edu/ISTP/#Forecast">Space Weather Resources</a> / 
+<a href="http://www.sec.noaa.gov/SWN/sw_dials.html">Explanation of Solar Wind</a> / 
+<a href="http://www.swpc.noaa.gov/">Space Weather Prediction Center</a> / 
+<a href="http://wdc.nict.go.jp/index_eng.html">National Institute of Information and Communications Technology</a> /
+<a href="https://spaceshw.github.io/cloud_realtime.html">Earth's Weather</a> /
+<a href="https://spaceshw.github.io/WorldWeatherNow.html">Earth's World Weather</a> /
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32858501-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</BODY>
+</HTML>

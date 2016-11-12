@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>World Cloud</title>
+<meta http-equiv="Refresh" content="1800">
+<script src="https://dl.dropboxusercontent.com/u/79249656/lib_shw/three.min.js"></script>
+<script src="https://dl.dropboxusercontent.com/u/79249656/lib_shw/Projector.js"></script>
+<script src="https://dl.dropboxusercontent.com/u/79249656/lib_shw/CanvasRenderer.js"></script>
+<script>	
+	function init() {
+		camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 3000 );
+		camera.position.z = 1000;
+		scene = new THREE.Scene();
+		group = new THREE.Object3D();;
+		scene.add( group );
+		renderer = new THREE.CanvasRenderer();
+		renderer.setClearColor( 0xffffff );
+		renderer.setSize( window.innerWidth*1.0, window.innerHeight*1.0 );
+		container.appendChild( renderer.domElement );
+		
+		geometry = new THREE.SphereGeometry(400, 60, 60);
+        material = new THREE.MeshPhongMaterial({
+			map: THREE.ImageUtils.loadTexture('http://weather.xgoo.jp/images/satellite/world/himaworld.jpg') });
+		mesh1 = new THREE.Mesh(geometry, material);
+        mesh1.position.set(0,0,0);
+        group.add(mesh1);
+        group.rotation.x = 3.14/4;
+		animate();
+	}
+
+	function animate() {
+		requestAnimationFrame( animate );
+	  mesh1.rotation.y += 0.005;
+		renderer.render( scene, camera );
+	}
+
+// Mouse
+  var down = false;
+  var sy = 0, sz = 0;
+  window.onmousedown = function (ev){
+    if (ev.target == renderer.domElement) { 
+      down = true;
+      sx = ev.clientX; sy = ev.clientY;
+    }
+  };
+  window.onmouseup = function(){
+    down = false; 
+  };
+  window.onmousemove = function(ev) {
+    var speed = 0.02;
+    if (down) {
+        if (ev.target == renderer.domElement) { 
+        var dx = -(ev.clientX - sx);
+        var dy = -(ev.clientY - sy);
+        group.rotation.x -= dy*speed;
+        group.rotation.y -= dx*speed;
+        sx -= dx;
+        sy -= dy;
+      }
+    }
+  }
+  window.onmousewheel = function(ev){
+    var speed = 0.2;    
+    camera.position.z += ev.wheelDelta * speed ; 
+  }
+  
+</script>
+</head>
+<body onload="init()">
+<div id="container"></div>
+</body>
+</html>

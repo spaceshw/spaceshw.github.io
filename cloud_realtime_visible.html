@@ -1,0 +1,72 @@
+
+<html>
+<head>
+<title>Earth's Cloud</title>
+<meta http-equiv="Refresh" content="1800">
+
+<style type="text/css">
+   img {
+      width: 49%;
+      height: auto;
+      -webkit-filter: contrast(170%);
+      filter: contrast(170%);
+   }
+</style>
+
+<script type="text/javascript">
+
+function time() {
+ now = new Date();
+ str1 = now.getFullYear().toString();
+ str2 = now.getMonth()+1; str2=str2.toString();
+ str3 = now.getDate().toString();
+ str4 = now.getHours(); str4=str4.toString();
+ str5 = now.getMinutes().toString();
+ str6 = now.getSeconds().toString();
+ str = " "+str1+"/"+str2+"/"+str3+"/"+str4+":"+str5+":"+str6+" LT";
+ document.lttime.ltmsg.value = str;
+}
+
+function gmsout(){
+ dd = new Date();
+ dd.setTime(dd.getTime()-(1800*1000));
+ str1 = dd.getFullYear().toString();
+ str2 = dd.getMonth()+1;
+ str2 = str2.toString();
+ str3 = dd.getDate().toString();
+ str4 = dd.getHours().toString();
+ gmsfile = str1;
+ if(str2<=9) { gmsfile += "0"+str2; }
+        else { gmsfile += str2; }
+ if(str3<=9) { gmsfile += "0"+str3; }
+        else { gmsfile += str3; }
+ if(str4<=9) { gmsfile += "0"+str4; }
+        else { gmsfile += str4; }
+ gmsfile += "00-00.png";
+
+ image1 = new Image();
+ image2 = new Image();
+ image1.src = "http://www.jma.go.jp/jp/gms/imgs_c/6/visible/0/"+gmsfile;
+ image2.src = "http://www.jma.go.jp/jp/gms/imgs_c/0/visible/0/"+gmsfile;
+ document.body.appendChild(image1);
+ document.write(" ")
+ document.body.appendChild(image2);
+ 
+// http://www.jma.go.jp/jp/gms/imgs_c/0/visible/0/201608081200-00.png
+}
+</script>
+</head>
+
+<body>
+
+<form name="lttime">
+ <input type="text" size="19" name="ltmsg">
+</form>
+
+<script type="text/javascript">
+setInterval("time()",1000);
+gmsout();
+</script>
+
+</body>
+</html>

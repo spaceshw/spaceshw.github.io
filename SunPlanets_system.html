@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="./lib/three.js"></script>
+<script src="./lib/Projector.js"></script>
+<script src="./lib/CanvasRenderer.js"></script>
+<script>	
+
+	var rot = 0;
+ 	var rdi = 1.0/1.2e4;
+	var pro = 0.5;
+	var dis = 1.5e8/1.2e7;
+
+	var rdsun   = rdi*1391400. /40.0;
+	var psun    = pro/27.0;
+
+    	var rdmercury = rdi*4879.;
+	var dmercury  = dis*0.38;
+	var pmercury  = pro/58.65;
+
+    	var rdvenus = rdi*12103.;
+	var dvenus  = dis*0.72;
+	var pvenus  = pro/243.0;
+
+    	var rdearth = rdi*12756.;
+	var dearth  = dis;
+	var pearth  = pro;
+
+    	var rdmars = rdi*6794.;
+	var dmars  = dis*1.52;
+	var pmars  = pro;
+
+    	var rdjupiter = rdi*142984.;
+	var djupiter  = dis*5.23;
+	var pjupiter  = pro/0.413;
+
+    	var rdsaturn = rdi*120536.;
+	var dsaturn  = dis*9.53;
+	var psaturn  = pro/0.426;
+
+    	var rduranus = rdi*51118.;
+	var duranus  = dis*19.18;
+	var puranus  = pro/0.71;
+
+    	var rdnepturn = rdi*49572.;
+	var dnepturn  = dis*30.0;
+	var pnepturn  = pro/0.671;
+
+	function init() {
+		camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 2000 );
+		camera.position.z = 700;
+		scene = new THREE.Scene();
+		group = new THREE.Object3D();;
+		scene.add( group );
+		renderer = new THREE.CanvasRenderer();
+		renderer.setClearColor( 0xffffff );
+		renderer.setSize( window.innerWidth*0.9, window.innerHeight*0.9 );
+		container.appendChild( renderer.domElement );
+
+		geometry = new THREE.SphereGeometry(rdsun, 30, 30);
+        	material = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('./image/sun.jpg') });
+		sun = new THREE.Mesh(geometry, material);
+		sun.position.set(0,0,0);
+       		 group.add(sun);
+
+		geometry = new THREE.SphereGeometry(rdmercury, 30, 30);
+       		material = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('./image/Mercury.jpg') });
+		mercury = new THREE.Mesh(geometry, material);
+		group.add(mercury);
+
+		geometry = new THREE.SphereGeometry(rdvenus, 30, 30);
+       		material = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('./image/venus.jpg') });
+		venus = new THREE.Mesh(geometry, material);
+		group.add(venus);
+
+		geometry = new THREE.SphereGeometry(rdearth, 30, 30);
+        	material = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('./image/earth.jpg') });
+		earth = new THREE.Mesh(geometry, material);
+	    	group.add(earth);
+
+		geometry = new THREE.SphereGeometry(rdmars, 30, 30);
+        	material = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('./image/mars.jpg') });
+		mars = new THREE.Mesh(geometry, material);
+	    	group.add(mars);
+
+		geometry = new THREE.SphereGeometry(rdjupiter, 30, 30);
+        	material = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('./image/jupiter.jpg') });
+		jupiter = new THREE.Mesh(geometry, material);
+	    	group.add(jupiter);
+
+		geometry = new THREE.SphereGeometry(rdsaturn, 30, 30);
+        	material = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('./image/saturn.jpg') });
+		saturn = new THREE.Mesh(geometry, material);
+	    	group.add(saturn);
+
+		geometry = new THREE.SphereGeometry(rduranus, 30, 30);
+        	material = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('./image/uranus.jpg') });
+		uranus = new THREE.Mesh(geometry, material);
+	    	group.add(uranus);
+
+		geometry = new THREE.SphereGeometry(rdnepturn, 30, 30);
+        	material = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('./image/nepturn.jpg') });
+		nepturn = new THREE.Mesh(geometry, material);
+	    	group.add(nepturn);
+
+		animate();
+	}
+
+	function animate() {
+	    rot -= 0.5;
+	    rmercury = rot/0.241;
+	    rvenus = rot/0.615;
+	    rearth = rot;
+	    rmars  = rot/1.881;
+	    rjupiter = rot/11.86;
+	    rsaturn = rot/29.46;
+	    ruranus = rot/84.01;
+	    rnepturn = rot/164.79;
+		requestAnimationFrame( animate );
+		sun.rotation.y   += psun;
+		sun.rotation.x = 3.14/2.0;
+		mercury.rotation.y += pmercury;
+		mercury.rotation.x = 3.14/2.0;
+		venus.rotation.y += pvenus;
+		venus.rotation.x = 3.14/2.0;
+		earth.rotation.y += pearth;
+		earth.rotation.x = 3.14/2.0;
+		mars.rotation.y  += pmars;
+		mars.rotation.x = 3.14/2.0;
+		jupiter.rotation.y += pjupiter;
+		jupiter.rotation.x = 3.14/2.0;
+		saturn.rotation.y += psaturn;
+		saturn.rotation.x = 3.14/2.0;
+		uranus.rotation.y += puranus;
+		uranus.rotation.x = 3.14/2.0;
+		nepturn.rotation.y += pnepturn;
+		nepturn.rotation.x = 3.14/2.0;
+		mercury.position.x = dmercury * Math.sin(mercury);
+		mercury.position.y = dmercury * Math.cos(mercury);
+		venus.position.x = dvenus * Math.sin(rvenus);
+		venus.position.y = dvenus * Math.cos(rvenus);
+		earth.position.x = dearth * Math.sin(rearth);
+		earth.position.y = dearth * Math.cos(rearth);
+		mars.position.x = dmars * Math.sin(rmars);
+		mars.position.y = dmars * Math.cos(rmars);
+		jupiter.position.x = djupiter * Math.sin(rjupiter);
+		jupiter.position.y = djupiter * Math.cos(rjupiter);
+		saturn.position.x = dsaturn * Math.sin(rsaturn);
+		saturn.position.y = dsaturn * Math.cos(rsaturn);
+		uranus.position.x = duranus * Math.sin(ruranus);
+		uranus.position.y = duranus * Math.cos(ruranus);
+		nepturn.position.x = dnepturn * Math.sin(rnepturn);
+		nepturn.position.y = dnepturn * Math.cos(rnepturn);
+        document.ptime.pmsg.value = (-rot/2.0/3.14).toString()+" years";
+		renderer.render( scene, camera );
+	}
+
+function SunPlanets(){
+    location.href = "./SunPlanets.html";
+}
+
+// Mouse
+  var down = false;
+  var sx = 0, sy = 0;
+  window.onmousedown = function (ev){
+    if (ev.target == renderer.domElement) { 
+      down = true;
+      sx = ev.clientX; sy = ev.clientY;
+    }
+  };
+  window.onmouseup = function(){
+    down = false; 
+  };
+  window.onmousemove = function(ev) {
+    var speed = 0.02;
+    if (down) {
+        if (ev.target == renderer.domElement) { 
+        var dx = -(ev.clientX - sx);
+        var dy = -(ev.clientY - sy);
+        group.rotation.x -= dy*speed;
+        group.rotation.y -= dx*speed;
+        sx -= dx;  sy -= dy;
+      }
+    }
+  }
+  window.onmousewheel = function(ev){
+    var speed = 0.2;    
+    camera.position.z += ev.wheelDelta * speed ; 
+  }
+
+</script>
+</head>
+<body onload="init()">
+<div id="container"></div>
+<form name="ptime">
+ <input type="text" size="20" name="pmsg">
+ <input type="button" name="Sun Planets" value="Sun and Planets" onClick="SunPlanets()">
+ 0.04 times small for Sun, 0.001 times small for Planets
+</form>
+</body>
+</html>

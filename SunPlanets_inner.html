@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="./lib/three.js"></script>
+<script src="./lib/Projector.js"></script>
+<script src="./lib/CanvasRenderer.js"></script>
+<script>	
+
+    var rdi = 0.015;
+	var pro = 0.3;
+
+    var rdmercury = rdi*4879.0;
+	var pmercury  = pro/58.65;
+
+    var rdvenus = rdi*12103.0;
+	var pvenus  = pro/243.0;
+
+    var rdearth = rdi*12756.0;
+	var pearth  = pro/0.997271;
+
+    var rdmars = rdi*6794.0;
+	var pmars  = pro/1.02595;
+
+	function init() {
+		camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 2000 );
+		camera.position.z = 700;
+		scene = new THREE.Scene();
+		group = new THREE.Object3D();;
+		scene.add( group );
+		renderer = new THREE.CanvasRenderer();
+		renderer.setClearColor( 0xffffff );
+		renderer.setSize( window.innerWidth*0.9, window.innerHeight*0.9 );
+		container.appendChild( renderer.domElement );
+
+		geometry = new THREE.SphereGeometry(rdmercury, 50, 50);
+        material = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('./image/Mercury.jpg') });
+		mercury = new THREE.Mesh(geometry, material);
+		mercury.position.set(-600,0,0);
+		group.add(mercury);
+
+		geometry = new THREE.SphereGeometry(rdvenus, 50, 50);
+        material = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('./image/venus.jpg') });
+		venus = new THREE.Mesh(geometry, material);
+		venus.position.set(-250,0,0);
+		group.add(venus);
+
+		geometry = new THREE.SphereGeometry(rdearth, 50, 50);
+        material = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('./image/earth.jpg') });
+		earth = new THREE.Mesh(geometry, material);
+		earth.position.set(200,0,0);
+	    group.add(earth);
+
+		geometry = new THREE.SphereGeometry(rdmars, 50, 50);
+        material = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('./image/mars.jpg') });
+		mars = new THREE.Mesh(geometry, material);
+		mars.position.set(600,0,0);
+	    group.add(mars);
+
+		animate();
+	}
+
+	function animate() {
+		requestAnimationFrame( animate );
+		mercury.rotation.y += pmercury;
+		venus.rotation.y += pvenus;
+		venus.rotation.x = 177.36*3.14/180.0;
+		earth.rotation.y += pearth;
+		earth.rotation.x = 23.4*3.14/180.0;
+		mars.rotation.y  += pmars;
+		mars.rotation.x = 25.0*3.14/180.0;
+
+        document.ptime.pmsg.value = (earth.rotation.y/2.0/3.14).toString()+" days";
+		renderer.render( scene, camera );
+	}
+
+function SunPlanets(){
+    location.href = "./SunPlanets.html";
+}
+function SunPlanetsSystem(){
+    location.href = "./SunPlanets_system.html";
+}
+
+// Mouse
+  var down = false;
+  var sx = 0, sy = 0;
+  window.onmousedown = function (ev){
+    if (ev.target == renderer.domElement) { 
+      down = true;
+      sx = ev.clientX; sy = ev.clientY;
+    }
+  };
+  window.onmouseup = function(){
+    down = false; 
+  };
+  window.onmousemove = function(ev) {
+    var xspeed = 1, yspeed = 0.001;
+    if (down) {
+        if (ev.target == renderer.domElement) { 
+        var dx = -(ev.clientX - sx);
+        var dy = -(ev.clientY - sy);
+        group.rotation.x -= dy*yspeed;
+        group.position.x -= dx*xspeed;
+        sx -= dx;  sy -= dy;
+      }
+    }
+  }
+  window.onmousewheel = function(ev){
+    var speed = 0.05;
+    camera.position.z += ev.wheelDelta * speed ; 
+  }
+
+</script>
+</head>
+<body onload="init()">
+<div id="container"></div>
+<form name="ptime">
+ <input type="text" size="20" name="pmsg">
+ <input type="button" name="Solar System" value="Solar System" onClick="SunPlanetsSystem()">
+ <input type="button" name="Sun and Planets" value="Sun and Planets" onClick="SunPlanets()">
+</form>
+</body>
+</html>

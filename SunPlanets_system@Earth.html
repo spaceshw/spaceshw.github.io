@@ -151,15 +151,32 @@
 		uranus.position.y = duranus * Math.cos(ruranus);
 		nepturn.position.x = dnepturn * Math.sin(rnepturn);
 		nepturn.position.y = dnepturn * Math.cos(rnepturn);
+		sun.position.x = -dearth * Math.sin(rearth);
+		sun.position.y = -dearth * Math.cos(rearth);
+		mercury.position.x = mercury.position.x-dearth * Math.sin(rearth);
+		mercury.position.y = mercury.position.y-dearth * Math.cos(rearth);
+		venus.position.x = venus.position.x-dearth * Math.sin(rearth);
+		venus.position.y = venus.position.y-dearth * Math.cos(rearth);
+		earth.position.x = earth.position.x-dearth * Math.sin(rearth);
+		earth.position.y = earth.position.y-dearth * Math.cos(rearth);
+		mars.position.x = mars.position.x-dearth * Math.sin(rearth);
+		mars.position.y = mars.position.y-dearth * Math.cos(rearth);
+		jupiter.position.x = jupiter.position.x-dearth * Math.sin(rearth);
+		jupiter.position.y = jupiter.position.y-dearth * Math.cos(rearth);
+		saturn.position.x = saturn.position.x-dearth * Math.sin(rearth);
+		saturn.position.y = saturn.position.y-dearth * Math.cos(rearth);
+		uranus.position.x = uranus.position.x-dearth * Math.sin(rearth);
+		uranus.position.y = uranus.position.y-dearth * Math.cos(rearth);
+		nepturn.position.x = nepturn.position.x-dearth * Math.sin(rearth);
+		nepturn.position.y = nepturn.position.y-dearth * Math.cos(rearth);
         document.ptime.pmsg.value = (-rot/2.0/3.14).toString()+" years";
 		renderer.render( scene, camera );
 	}
-
+function SunPlanets_system(){
+    location.href = "./SunPlanets_system.html";
+}
 function SunPlanets(){
     location.href = "./SunPlanets.html";
-}
-function CenterEarth(){
-    location.href = "./SunPlanets_system@Earth.html";
 }
 
 // Mouse
@@ -197,9 +214,8 @@ function CenterEarth(){
 <div id="container"></div>
 <form name="ptime">
  <input type="text" size="20" name="pmsg">
-  <input type="button" name="Solar@Earth" value="Solar@Earth" onClick="CenterEarth()">
-  <input type="button" name="Sun Planets" value="Sun and Planets" onClick="SunPlanets()">
- 0.04 times small for Sun, 0.001 times small for Planets
+ <input type="button" name="Sun Planets" value="Sun and Planets" onClick="SunPlanets()">
+ <input type="button" name="Solar System" value="Solar System" onClick="SunPlanets_system()">
 </form>
 </body>
 </html>
